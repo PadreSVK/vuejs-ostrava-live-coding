@@ -1,16 +1,20 @@
 <template>
-  <hello-world />
+  <MainLayout>
+     <HelloWorld />
+  </MainLayout>
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
-  import HelloWorld from '../components/HelloWorld.vue'
+import Vue from "vue";
+import { HelloWorld } from "@/components";
+import { MainLayout } from "@/layouts";
 
-  export default Vue.extend({
-    name: 'Home',
+export default Vue.extend({
+  name: "Home",
 
-    components: {
-      HelloWorld,
-    },
-  })
+  components: {
+    HelloWorld,
+    MainLayout
+  },
+});
 </script>
