@@ -5,8 +5,13 @@ import router from './router'
 import vuetify from './plugins/vuetify'
 
 import { OpenAPI } from "@/apiService";
+import { isDevelopment, configuration } from '@/configuration'
 
-OpenAPI.BASE = "https://localhost:5001"
+OpenAPI.BASE = configuration.baseUrl
+
+if(isDevelopment()){
+    console.table(process.env)
+}
 
 Vue.config.productionTip = false
 
