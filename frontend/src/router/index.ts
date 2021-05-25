@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { Home, About, Login, Register } from '@/views'
+import { Home, About, Login, Register, Administration } from '@/views'
 import { authenticationGuard } from './guards'
 
 const Autenticated = "Autenticated"
@@ -26,7 +26,7 @@ const routes = [
         }
     },
     {
-        path: '/login', 
+        path: '/login',
         name: 'Login',
         component: Login,
         meta: {
@@ -34,11 +34,19 @@ const routes = [
         }
     },
     {
-        path: '/register', 
+        path: '/register',
         name: 'Register',
         component: Register,
         meta: {
             layout: NotAutenticated
+        }
+    },
+    {
+        path: '/administration',
+        name: 'Administration',
+        component: Administration,
+        meta: {
+            layout: Autenticated
         }
     }
 ]

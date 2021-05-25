@@ -5,6 +5,9 @@ export function isDevelopment(): boolean {
 
 export const configuration = {
     baseUrl: process.env.VUE_APP_BASE_URL,
+    logger:{
+        level: process.env.VUE_APP_LOGGER_LEVEL as LogLevel
+    },
     ...(isDevelopment() && {
         develop: {
             credentials: {

@@ -2,13 +2,7 @@ import { Module } from "vuex";
 import { AuthManagementService, OpenAPI } from "@/apiService";
 import { GlobalState } from "@/store/interfaces";
 import { parseJwt } from "@/utils";
-
-export interface UserInfo {
-    id: string
-    sub: string
-    email: string
-    jti: string
-}
+import { logError } from "@/logger";
 
 interface JWTSchema {
     Id: string,
@@ -16,10 +10,6 @@ interface JWTSchema {
     email: string
     jti: string
     "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string
-}
-
-export interface IdenityState {
-    userInfo: UserInfo
 }
 
 export const identity: Module<IdenityState, GlobalState> = {
@@ -49,6 +39,7 @@ export const identity: Module<IdenityState, GlobalState> = {
                 commit("user_logged", userInfo)
                 return { autenticated: true }
             } catch (error) {
+                logError(`User auth failed - ${error}`)
                 return { autenticated: false }
             }
         }
