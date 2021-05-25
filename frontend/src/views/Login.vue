@@ -23,7 +23,7 @@ export default {
         password: this.password,
       });
       if (autenticated) {
-        const redirectTo=this.$route.query.redirect || { name: "Home"};
+        const redirectTo = this.$route.query.redirect || { name: "Home" };
         this.$router.replace(redirectTo);
       } else {
         this.showError = true;
