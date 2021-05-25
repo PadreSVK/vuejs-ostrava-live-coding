@@ -4,6 +4,10 @@ import store from './store'
 import router from './router'
 import vuetify from './plugins/vuetify'
 
+import { OpenAPI } from "@/apiService";
+
+OpenAPI.BASE = "https://localhost:5001"
+
 Vue.config.productionTip = false
 
 new Vue({

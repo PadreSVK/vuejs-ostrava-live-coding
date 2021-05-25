@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { Home, About, Login } from '@/views'
+import { Home, About, Login, Register } from '@/views'
+import { authenticationGuard } from './guards'
 
 const Autenticated = "Autenticated"
 const NotAutenticated = "NotAutenticated"
@@ -31,11 +32,19 @@ const routes = [
         meta: {
             layout: NotAutenticated
         }
+    },
+    {
+        path: '/register', 
+        name: 'Register',
+        component: Register,
+        meta: {
+            layout: NotAutenticated
+        }
     }
 ]
 
 const router = new VueRouter({
     routes
 })
-
+router.beforeEach(authenticationGuard)
 export default router
