@@ -31,7 +31,7 @@ export default {
   computed: {
     logLevel: {
       get() {
-        return this.$store.state.logLevel;
+        return this.$store.getters.logLevel;
       },
       set(value) {
         this.$store.dispatch("changeLogLevel", { logLevel: value });

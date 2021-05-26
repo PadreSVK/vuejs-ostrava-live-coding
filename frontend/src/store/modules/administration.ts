@@ -8,6 +8,9 @@ export const administration: Module<AdministrationState, GlobalState> = {
     state: {
         logLevel: configuration.logger.level
     },
+    getters: {
+        logLevel: (state) => state.logLevel
+    },
     mutations: {
         update_log_level(state, logLevel: LogLevel) {
             state.logLevel = logLevel

@@ -11,6 +11,9 @@ export default Vue.extend({
   components: {
       AppLayout
   },
+  mounted(){
+      this.$store.dispatch("initLogLevel")
+  },
 
   data: () => ({
     //
