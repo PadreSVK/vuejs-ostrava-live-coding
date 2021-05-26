@@ -11,7 +11,7 @@ export class AuthManagementService {
      * @returns any Success
      * @throws ApiError
      */
-    public static async postAuthManagementService({
+    public static async register({
 requestBody,
 }: {
 requestBody?: UserRegistration,
@@ -28,7 +28,7 @@ requestBody?: UserRegistration,
      * @returns any Success
      * @throws ApiError
      */
-    public static async postAuthManagementService1({
+    public static async login({
 requestBody,
 }: {
 requestBody?: UserLogin,

@@ -10,6 +10,7 @@
         "tags": [
           "AuthManagement"
         ],
+        "operationId": "Register",
         "requestBody": {
           "content": {
             "application/json": {
@@ -41,6 +42,7 @@
         "tags": [
           "AuthManagement"
         ],
+        "operationId": "Login",
         "requestBody": {
           "content": {
             "application/json": {

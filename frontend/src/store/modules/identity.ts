@@ -20,7 +20,7 @@ export const identity: Module<IdenityState, GlobalState> = {
     actions: {
         async login({ commit }, { email, password }) {
             try {
-                const result = await AuthManagementService.postAuthManagementService1({
+                const result = await AuthManagementService.login({
                     requestBody: {
                         email,
                         password
