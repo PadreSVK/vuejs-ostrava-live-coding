@@ -1,6 +1,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { AuthResult } from '../models/AuthResult';
+import type { RegistrationResponse } from '../models/RegistrationResponse';
 import type { UserLogin } from '../models/UserLogin';
 import type { UserRegistration } from '../models/UserRegistration';
 import { request as __request } from '../core/request';
@@ -8,14 +10,14 @@ import { request as __request } from '../core/request';
 export class AuthManagementService {
 
     /**
-     * @returns any Success
+     * @returns RegistrationResponse Success
      * @throws ApiError
      */
     public static async register({
 requestBody,
 }: {
 requestBody?: UserRegistration,
-}): Promise<any> {
+}): Promise<RegistrationResponse> {
         const result = await __request({
             method: 'POST',
             path: `/api/AuthManagement/Register`,
@@ -25,14 +27,14 @@ requestBody?: UserRegistration,
     }
 
     /**
-     * @returns any Success
+     * @returns AuthResult Success
      * @throws ApiError
      */
     public static async login({
 requestBody,
 }: {
 requestBody?: UserLogin,
-}): Promise<any> {
+}): Promise<AuthResult> {
         const result = await __request({
             method: 'POST',
             path: `/api/AuthManagement/Login`,

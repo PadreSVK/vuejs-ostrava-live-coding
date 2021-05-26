@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Reflection;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FizzWare.NBuilder;
 using log4net;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RestApi.Config;
+using RestApi.Model;
 using RestApi.Model.DTO.Request;
 using RestApi.Model.DTO.Response;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace RestApi.Controllers
 {
@@ -21,12 +22,11 @@ namespace RestApi.Controllers
     [ApiController]
     public class AuthManagementController : ControllerBase
     {
-        private static readonly ILog mLog = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly JwtConfig mJwtConfig;
+        private static readonly ILog mLog = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly UserManager<IdentityUser> mUserManager;
+        private readonly JwtConfig mJwtConfig;
 
-        public AuthManagementController(UserManager<IdentityUser> aUserManager,
-            IOptionsMonitor<JwtConfig> aOptionsMonitor)
+        public AuthManagementController(UserManager<IdentityUser> aUserManager, IOptionsMonitor<JwtConfig> aOptionsMonitor)
         {
             mUserManager = aUserManager;
             mJwtConfig = aOptionsMonitor.CurrentValue;
@@ -34,25 +34,26 @@ namespace RestApi.Controllers
 
         [HttpPost]
         [Route("Register", Name = nameof(Register))]
-        public async Task<IActionResult> Register([FromBody] UserRegistration aUser)
+        public async Task<ActionResult<RegistrationResponse>> Register([FromBody] UserRegistration aUser)
         {
             if (ModelState.IsValid)
             {
                 var lExistingUser = await mUserManager.FindByNameAsync(aUser.Email);
 
                 if (lExistingUser != null)
-                    return BadRequest(new RegistrationResponse
+                {
+                    return BadRequest(new RegistrationResponse()
                     {
                         Result = false,
-                        Errors = new List<string> {"Email already exist"}
+                        Errors = new List<string>() { "Email already exist" }
                     });
+                }
 
                 var newUserId = Guid.NewGuid();
-                var lNewUser = new IdentityUser
-                {
+                var lNewUser = new IdentityUser() { 
                     Id = newUserId.ToString(),
-                    Email = aUser.Email,
-                    UserName = aUser.Email
+                    Email = aUser.Email, 
+                    UserName = aUser.Email 
                 };
                 var lIsCreated = await mUserManager.CreateAsync(lNewUser, aUser.Password);
 
@@ -60,44 +61,44 @@ namespace RestApi.Controllers
                 {
                     var lJwtToken = await GenerateJwtToken(lNewUser);
 
-                    return Ok(new RegistrationResponse
+                    return Ok(new RegistrationResponse()
                     {
                         Result = true,
                         Token = lJwtToken
                     });
                 }
 
-                return new JsonResult(new RegistrationResponse
-                    {
-                        Result = false,
-                        Errors = lIsCreated.Errors.Select(x => x.Description).ToList()
-                    }
-                ) {StatusCode = 500};
+                return new JsonResult(new RegistrationResponse() {
+                    Result = false,
+                    Errors = lIsCreated.Errors.Select(x => x.Description).ToList() }
+                    ) { StatusCode = 500 };
             }
 
-            return BadRequest(new RegistrationResponse
+            return BadRequest(new RegistrationResponse()
             {
                 Result = false,
-                Errors = new List<string> {"Invalid payload"}
+                Errors = new List<string>() { "Invalid payload" }
             });
         }
 
-        [HttpPost]
+        [HttpPost()]
         [Route("Login", Name = nameof(Login))]
-        public async Task<IActionResult> Login([FromBody] UserLogin aUser)
+        public async Task<ActionResult<AuthResult>> Login([FromBody] UserLogin aUser) 
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) 
             {
                 // check if the user with the same email exist
                 var lExistingUser = await mUserManager.FindByNameAsync(aUser.Email);
 
                 if (lExistingUser == null)
+                {
                     // We dont want to give to much information on why the request has failed for security reasons
-                    return BadRequest(new AuthResult
+                    return BadRequest(new AuthResult()
                     {
                         Result = false,
-                        Errors = new List<string> {"Invalid authentication request"}
+                        Errors = new List<string>(){"Invalid authentication request"}
                     });
+                }
 
                 // Now we need to check if the user has inputed the right password
                 var lIsCorrect = await mUserManager.CheckPasswordAsync(lExistingUser, aUser.Password);
@@ -106,25 +107,27 @@ namespace RestApi.Controllers
                 {
                     var lJwtToken = await GenerateJwtToken(lExistingUser);
 
-                    return Ok(new AuthResult
+                    return Ok(new AuthResult()
                     {
                         Result = true,
                         Token = lJwtToken
                     });
                 }
-
-                // We dont want to give to much information on why the request has failed for security reasons
-                return BadRequest(new AuthResult
+                else 
                 {
-                    Result = false,
-                    Errors = new List<string> {"Invalid authentication request"}
-                });
+                    // We dont want to give to much information on why the request has failed for security reasons
+                    return BadRequest(new AuthResult()
+                    {
+                        Result = false,
+                        Errors = new List<string>(){"Invalid authentication request"}
+                    });
+                }
             }
 
-            return BadRequest(new AuthResult
+            return BadRequest(new AuthResult()
             {
                 Result = false,
-                Errors = new List<string> {"Invalid payload"}
+                Errors = new List<string>(){"Invalid payload"}
             });
         }
 
@@ -143,10 +146,10 @@ namespace RestApi.Controllers
 
             var lClaims = new List<Claim>
             {
-                new("Id", aUser.Id),
-                new(JwtRegisteredClaimNames.Sub, aUser.Email),
-                new(JwtRegisteredClaimNames.Email, aUser.Email),
-                new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim("Id", aUser.Id),
+                new Claim(JwtRegisteredClaimNames.Sub, aUser.Email),
+                new Claim(JwtRegisteredClaimNames.Email, aUser.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
             var lUserClaims = await mUserManager.GetClaimsAsync(aUser);
@@ -159,8 +162,7 @@ namespace RestApi.Controllers
                 // but since this is a demo app we can extend it to fit our current need
                 Expires = DateTime.UtcNow.AddHours(6),
                 // here we are adding the encryption alogorithim information which will be used to decrypt our token
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(lKey),
-                    SecurityAlgorithms.HmacSha512Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(lKey), SecurityAlgorithms.HmacSha512Signature)
             };
 
             var lToken = lJwtTokenHandler.CreateToken(lTokenDescriptor);

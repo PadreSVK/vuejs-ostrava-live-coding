@@ -26,9 +26,9 @@ export const identity: Module<IdenityState, GlobalState> = {
                         password
                     }
                 })
-
-                const parsedToken: JWTSchema = parseJwt(result.token)
-                OpenAPI.TOKEN = result.token
+                const token = result.token as string
+                const parsedToken: JWTSchema = parseJwt(token)
+                OpenAPI.TOKEN = token
                 const userInfo: UserInfo = {
                     id: parsedToken.Id,
                     email: parsedToken.email,
