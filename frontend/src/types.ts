@@ -5,7 +5,8 @@ type IdenityState = {
 }
 
 type AdministrationState = {
-    logLevel: LogLevel
+    logLevel: LogLevel,
+    logs: Array<Log>
 }
 
 type UserInfo = {
@@ -15,3 +16,8 @@ type UserInfo = {
     jti: string
 }
 
+type Log = {
+    date: string
+    level: string
+    message: string
+}

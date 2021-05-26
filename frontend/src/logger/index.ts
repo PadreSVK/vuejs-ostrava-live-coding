@@ -3,23 +3,25 @@ import store from "@/store";
 const storage = window.localStorage
 const logLevel = () => ((store.state as any).administration as AdministrationState).logLevel
 
-export function dumpLogs() {
+export function dumpLogs(): Array<string> {
     const value = localStorage.getItem("logs") || "[]"
     return JSON.parse(value);
 }
 
-export function tryGetLogLevel(){
+export function cleanLogs(): void {
+    localStorage.removeItem("logs")
+}
+
+export function tryGetLogLevel() {
     const logLevel = localStorage.getItem("logLevel")
-    if(logLevel){
+    if (logLevel) {
         return logLevel as LogLevel
     }
     return undefined
 }
-export function changeLogLevel(logLevel : LogLevel){
+export function changeLogLevel(logLevel: LogLevel) {
     localStorage.setItem("logLevel", logLevel)
 }
-
-
 
 function log(level: LogLevel, message: string) {
     const date = new Date().toString()
