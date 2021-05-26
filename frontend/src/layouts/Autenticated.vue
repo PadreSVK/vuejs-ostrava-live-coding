@@ -40,7 +40,7 @@
 
     <v-main>
       <router-view />
-      <v-snackbar color="red" v-model="showError">
+      <v-snackbar color="red" v-model="showError" timeout="2000">
         {{ errorMessage }}
         <template v-slot:action="{ attrs }">
           <v-btn color="white" text v-bind="attrs" @click="closeError">
@@ -60,7 +60,17 @@ export default {
     ...mapActions(["closeError"]),
   },
   computed: {
-    ...mapGetters(["showError", "errorMessage"]),
+    ...mapGetters(["errorMessage"]),
+    showError: {
+        get(){
+            return this.$store.getters.showError
+        },
+        set(value){
+            if(!value){
+                this.$store.dispatch("closeError")
+            }
+        }
+    }
   },
 };
 </script>
