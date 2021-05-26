@@ -6,12 +6,14 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "generate:client": "openapi --input ./swagger.json --useOptions --output ./src/apiService" 
+    "generate:client": "openapi --input ./swagger.json --useOptions --output ./src/apiService"
   },
   "dependencies": {
+    "chart.js": "^3.3.0",
     "core-js": "^3.6.5",
     "openapi-typescript-codegen": "^0.9.3",
     "vue": "^2.6.11",
+    "vue-chartjs": "^3.5.1",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.2.0",
