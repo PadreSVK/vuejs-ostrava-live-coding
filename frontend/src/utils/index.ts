@@ -8,4 +8,8 @@ function parseJwt(token: string) {
     return JSON.parse(jsonPayload);
 }
 
-export { parseJwt }
+function deepClone<T>(objectoToClone: T): T {
+    return JSON.parse(JSON.stringify(objectoToClone))
+}
+
+export { parseJwt, deepClone }
