@@ -1,5 +1,9 @@
 type LogLevel = "Information" | "Warning" | "Error"
 
+type GlobalState = {
+
+}
+
 type IdenityState = {
     userInfo: UserInfo
 }

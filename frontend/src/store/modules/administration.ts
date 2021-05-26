@@ -1,4 +1,3 @@
-import { GlobalState } from "@/store/interfaces";
 import { Module } from "vuex";
 import { configuration } from "@/configuration";
 import { changeLogLevel, cleanLogs, dumpLogs, tryGetLogLevel } from "@/logger";

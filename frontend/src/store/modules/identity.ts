@@ -1,6 +1,5 @@
 import { Module } from "vuex";
 import { AuthManagementService, OpenAPI } from "@/apiService";
-import { GlobalState } from "@/store/interfaces";
 import { parseJwt } from "@/utils";
 import { logError } from "@/logger";
 
