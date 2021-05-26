@@ -6,18 +6,20 @@ import vuetify from './plugins/vuetify'
 
 import { OpenAPI } from "@/apiService";
 import { isDevelopment, configuration } from '@/configuration'
+import { apply } from "./mixins";
+apply()
 
 OpenAPI.BASE = configuration.baseUrl
 
-if(isDevelopment()){
+if (isDevelopment()) {
     console.table(process.env)
 }
 
 Vue.config.productionTip = false
 
 new Vue({
-  store,
-  router,
-  vuetify,
-  render: h => h(App)
+    store,
+    router,
+    vuetify,
+    render: h => h(App)
 }).$mount('#app')

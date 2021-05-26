@@ -40,12 +40,29 @@
 
     <v-main>
       <router-view />
+      <v-snackbar color="red" v-model="showError">
+        {{ errorMessage }}
+        <template v-slot:action="{ attrs }">
+          <v-btn color="white" text v-bind="attrs" @click="closeError">
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>
     </v-main>
   </v-app>
 </template>
 
 <script>
-export default {};
+import { mapActions, mapGetters } from "vuex";
+
+export default {
+  methods: {
+    ...mapActions(["closeError"]),
+  },
+  computed: {
+    ...mapGetters(["showError", "errorMessage"]),
+  },
+};
 </script>
 
 <style></style>

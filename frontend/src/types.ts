@@ -7,6 +7,10 @@ type GlobalState = {
 type IdenityState = {
     userInfo: UserInfo
 }
+type NotificationState = {
+    showError: boolean,
+    errorMessage: string,
+}
 
 type AdministrationState = {
     logLevel: LogLevel,

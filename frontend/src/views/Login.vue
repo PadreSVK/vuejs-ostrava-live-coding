@@ -3,7 +3,7 @@
     <v-text-field label="Name" v-model="name" />
     <v-text-field label="Password" v-model="password" :value="password" />
     <v-btn @click="login">Login</v-btn>
-    <v-alert color="red" :value="showError">Wrong credentials</v-alert>
+    <v-alert color="red" :value="showLoginError">Wrong credentials</v-alert>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
     return {
       name: undefined,
       password: undefined,
-      showError: false,
+      showLoginError: false,
     };
   },
   methods: {
@@ -26,7 +26,7 @@ export default {
         const redirectTo = this.$route.query.redirect || { name: "Home" };
         this.$router.replace(redirectTo);
       } else {
-        this.showError = true;
+        this.showLoginError = true;
       }
     },
   },

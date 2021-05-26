@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { identity, administration } from "@/store/modules";
+import { identity, administration, notification } from "@/store/modules";
 
 Vue.use(Vuex)
 
@@ -13,6 +13,7 @@ export default new Vuex.Store({
     },
     modules: {
         identity,
-        administration
+        administration,
+        notification
     }
 })

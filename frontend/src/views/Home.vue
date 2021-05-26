@@ -1,5 +1,8 @@
 <template>
-   <HelloWorld />
+  <div>
+    <HelloWorld />
+    <v-btn @click="showErrorNotification({ message: 'Hello world' })">Show Error</v-btn>
+  </div>
 </template>
 
 <script lang="ts">
