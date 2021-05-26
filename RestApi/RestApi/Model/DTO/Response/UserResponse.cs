@@ -8,7 +8,7 @@ namespace RestApi.Model.DTO.Response
     public class UserResponse : DefaultResponse
     {
         public UserResponse() { }
-        public UserResponse(string aUserId, string aEmail, List<ClaimDesc> aUserClaimList) 
+        public UserResponse(string aUserId, string aEmail, List<ClaimDesc> aUserClaimList)
         {
             UserId = aUserId;
             Email = aEmail;
@@ -19,9 +19,9 @@ namespace RestApi.Model.DTO.Response
         public List<ClaimDesc> UserClaimList { get; set; }
     }
 
-    public class ClaimDesc 
+    public class ClaimDesc
     {
-        public ClaimDesc(string aKey, string aValue) 
+        public ClaimDesc(string aKey, string aValue)
         {
             Key = aKey;
             Value = aValue;

@@ -29,7 +29,7 @@ namespace RestApi.Controllers
         public async Task<IActionResult> AddClaim([FromBody] ClaimRequest aClaimRequest)
         {
             var lUser = await mUserManager.FindByIdAsync(aClaimRequest.UserId);
-            if (lUser == null) 
+            if (lUser == null)
             {
                 mLog.Error($"User with set Id does not exist");
                 return BadRequest(new DefaultResponse()
@@ -42,15 +42,15 @@ namespace RestApi.Controllers
             try
             {
                 await mUserManager.AddClaimAsync(lUser, new Claim(aClaimRequest.ClaimKey, aClaimRequest.ClaimValue));
-                
+
                 mLog.Info($"Claim:{aClaimRequest.ClaimKey} with value:{aClaimRequest.ClaimValue} was granted to User: {lUser.Email}");
-                
+
                 return Ok(new DefaultResponse()
                 {
                     Result = true,
                 });
             }
-            catch (Exception e) 
+            catch (Exception e)
             {
                 mLog.Error($"Claim: {aClaimRequest.ClaimKey} was not added to User: {lUser.Email} Exeption: {e}");
                 return BadRequest(new DefaultResponse()
@@ -63,10 +63,10 @@ namespace RestApi.Controllers
 
         [HttpPost]
         [Route("AddOrUpdateClaim")]
-        public async Task<IActionResult> AddOrUpdateClaim([FromBody] ClaimRequest aClaimRequest) 
+        public async Task<IActionResult> AddOrUpdateClaim([FromBody] ClaimRequest aClaimRequest)
         {
             var lUser = await mUserManager.FindByIdAsync(aClaimRequest.UserId);
-            if (lUser == null) 
+            if (lUser == null)
             {
                 mLog.Error($"User with set Id does not exist");
                 return BadRequest(new DefaultResponse()
@@ -108,7 +108,7 @@ namespace RestApi.Controllers
         public async Task<IActionResult> RemoveClaim([FromBody] ClaimRequest aClaimRequest)
         {
             var lUser = await mUserManager.FindByIdAsync(aClaimRequest.UserId);
-            if (lUser == null) 
+            if (lUser == null)
             {
                 mLog.Error($"User with set Id does not exist");
                 return BadRequest(new DefaultResponse()

@@ -33,7 +33,7 @@ namespace RestApi.Controllers
             var lUserList = mUserManager.Users.ToList();
 
             var lUserResponseList = new List<UserResponse>();
-            
+
             foreach (var lUser in lUserList)
             {
                 var lClamDescList = new List<ClaimDesc>();
@@ -67,7 +67,7 @@ namespace RestApi.Controllers
             var lUser = await mUserManager.FindByIdAsync(aId);
 
             var lUserResponseList = new List<UserResponse>();
-            
+
             var lClamDescList = new List<ClaimDesc>();
 
             var lUserClaimList = await mUserManager.GetClaimsAsync(lUser);

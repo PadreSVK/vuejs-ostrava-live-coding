@@ -7,7 +7,7 @@ namespace RestApi.Data
     {
         public ApiDbContext(DbContextOptions<ApiDbContext> options)
             : base(options)
-        { 
+        {
         }
     }
 }

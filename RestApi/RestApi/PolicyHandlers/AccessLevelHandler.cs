@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 namespace RestApi.PolicyHandlers
 {
     public class MinimumAccessLevelRequirement : IAuthorizationRequirement
-    { 
+    {
         public int AccessLevel { get; }
 
-        public MinimumAccessLevelRequirement(int aAccessLevel) 
+        public MinimumAccessLevelRequirement(int aAccessLevel)
         {
             AccessLevel = aAccessLevel;
         }
@@ -32,7 +32,7 @@ namespace RestApi.PolicyHandlers
             {
                 lAccessLevel = Int32.Parse(lAccessLevelString);
             }
-            catch (FormatException e) 
+            catch (FormatException e)
             {
                 mLog.Error($"AccessLevel Format Error Exeption: {e}");
                 return Task.CompletedTask;

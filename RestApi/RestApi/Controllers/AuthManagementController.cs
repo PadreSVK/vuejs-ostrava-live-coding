@@ -50,10 +50,11 @@ namespace RestApi.Controllers
                 }
 
                 var newUserId = Guid.NewGuid();
-                var lNewUser = new IdentityUser() { 
+                var lNewUser = new IdentityUser()
+                {
                     Id = newUserId.ToString(),
-                    Email = aUser.Email, 
-                    UserName = aUser.Email 
+                    Email = aUser.Email,
+                    UserName = aUser.Email
                 };
                 var lIsCreated = await mUserManager.CreateAsync(lNewUser, aUser.Password);
 
@@ -68,10 +69,13 @@ namespace RestApi.Controllers
                     });
                 }
 
-                return new JsonResult(new RegistrationResponse() {
+                return new JsonResult(new RegistrationResponse()
+                {
                     Result = false,
-                    Errors = lIsCreated.Errors.Select(x => x.Description).ToList() }
-                    ) { StatusCode = 500 };
+                    Errors = lIsCreated.Errors.Select(x => x.Description).ToList()
+                }
+                    )
+                { StatusCode = 500 };
             }
 
             return BadRequest(new RegistrationResponse()
@@ -83,9 +87,9 @@ namespace RestApi.Controllers
 
         [HttpPost()]
         [Route("Login", Name = nameof(Login))]
-        public async Task<ActionResult<AuthResult>> Login([FromBody] UserLogin aUser) 
+        public async Task<ActionResult<AuthResult>> Login([FromBody] UserLogin aUser)
         {
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 // check if the user with the same email exist
                 var lExistingUser = await mUserManager.FindByNameAsync(aUser.Email);
@@ -96,7 +100,7 @@ namespace RestApi.Controllers
                     return BadRequest(new AuthResult()
                     {
                         Result = false,
-                        Errors = new List<string>(){"Invalid authentication request"}
+                        Errors = new List<string>() { "Invalid authentication request" }
                     });
                 }
 
@@ -113,13 +117,13 @@ namespace RestApi.Controllers
                         Token = lJwtToken
                     });
                 }
-                else 
+                else
                 {
                     // We dont want to give to much information on why the request has failed for security reasons
                     return BadRequest(new AuthResult()
                     {
                         Result = false,
-                        Errors = new List<string>(){"Invalid authentication request"}
+                        Errors = new List<string>() { "Invalid authentication request" }
                     });
                 }
             }
@@ -127,7 +131,7 @@ namespace RestApi.Controllers
             return BadRequest(new AuthResult()
             {
                 Result = false,
-                Errors = new List<string>(){"Invalid payload"}
+                Errors = new List<string>() { "Invalid payload" }
             });
         }
 

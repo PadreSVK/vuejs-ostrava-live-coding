@@ -7,6 +7,6 @@ namespace RestApi.Model.DTO.Response
 {
     public class AuthResult : DefaultResponse
     {
-        public string Token { get; set; }   
+        public string Token { get; set; }
     }
 }
