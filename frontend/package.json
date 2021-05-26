@@ -13,6 +13,7 @@
     "chart.js": "^2.9.3",
     "core-js": "^3.6.5",
     "openapi-typescript-codegen": "^0.9.3",
+    "vee-validate": "^3.4.6",
     "vue": "^2.6.11",
     "vue-chartjs": "^3.5.1",
     "vue-class-component": "^7.2.3",

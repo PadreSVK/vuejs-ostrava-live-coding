@@ -10,7 +10,9 @@
       <slot name="showbutton" v-bind="on" />
     </template>
     <template #content>
-      <slot name="content" v-bind:detail="innerDetail" />
+      <ValidationObserver ref="validator" >
+        <slot name="content" v-bind:detail="innerDetail" />
+      </ValidationObserver>
     </template>
     <template #footer="{close}">
       <v-btn color="error" text @click="close">Cancel</v-btn>
@@ -44,20 +46,22 @@ export default {
   },
   data() {
     return {
-      innerDetail: undefined,
+      innerDetail: {},
     };
   },
   methods: {
     loadState() {
       this.innerDetail = deepClone(this.detail);
     },
-    confirm(close) {
-      //todo add validations
-      this.$emit("confirm-event", { detail: this.innerDetail });
-      close();
+    async confirm(close) {
+      const isValid = await this.$refs.validator.validate();
+      if (isValid) {
+        this.$emit("confirm-event", { detail: this.innerDetail });
+        close();
+      }
     },
     cleanState() {
-      this.innerDetail = undefined;
+      this.innerDetail = {};
     },
   },
 };

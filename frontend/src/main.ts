@@ -3,11 +3,13 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 import vuetify from './plugins/vuetify'
-
+import veeValdiate from './plugins/veevalidate'
 import { OpenAPI } from "@/apiService";
 import { isDevelopment, configuration } from '@/configuration'
 import { apply } from "./mixins";
 apply()
+
+veeValdiate.apply(Vue)
 
 OpenAPI.BASE = configuration.baseUrl
 

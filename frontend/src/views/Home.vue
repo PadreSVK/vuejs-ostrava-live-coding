@@ -14,8 +14,9 @@
         <v-btn @click="loadData" v-on="on">Show me</v-btn>
       </template>
       <template #content="{detail}">
-        <v-text-field v-model="detail.name" label="Name" />
-        <v-text-field v-model="detail.age" type="number" label="Age" />
+        <v-text-field-validateable v-model="detail.name" label="Name" rules="min:3" />
+        <v-text-field-validateable v-model="detail.confirmName" label="Name Confirmation" rules="required|confirmation:@Name" />
+        <v-text-field-validateable v-model="detail.age" type="number" label="Age" />
       </template>
     </ModalDialogDetailBase>
   </div>
@@ -37,6 +38,7 @@ export default Vue.extend({
       loading: true,
       myDetail: {
         name: "Fero",
+        confirmName: "Fero",
         age: 25,
       },
     };
