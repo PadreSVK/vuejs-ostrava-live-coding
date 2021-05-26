@@ -25,6 +25,7 @@
         <v-tab :to="{ name: 'Home' }">Home</v-tab>
         <v-tab :to="{ name: 'About' }">About</v-tab>
         <v-tab :to="{ name: 'Administration' }">Administration</v-tab>
+        <v-tab :to="{ name: 'Chart' }">Chart</v-tab>
       </v-tabs>
       <v-spacer></v-spacer>
 

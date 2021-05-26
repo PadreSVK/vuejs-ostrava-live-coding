@@ -9,7 +9,7 @@
     "generate:client": "openapi --input ./swagger.json --useOptions --output ./src/apiService"
   },
   "dependencies": {
-    "chart.js": "^3.3.0",
+    "chart.js": "^2.9.3",
     "core-js": "^3.6.5",
     "openapi-typescript-codegen": "^0.9.3",
     "vue": "^2.6.11",
