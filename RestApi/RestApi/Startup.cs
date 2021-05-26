@@ -40,9 +40,11 @@ namespace RestApi
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.AllowAnyOrigin()
+                        builder
+                            .WithOrigins("http://localhost:8080")
                             .AllowAnyMethod()
-                            .AllowAnyHeader();
+                            .AllowAnyHeader()
+                            .AllowCredentials();
                     });
             });
             // Db Part

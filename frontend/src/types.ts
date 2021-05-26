@@ -7,6 +7,11 @@ type GlobalState = {
 type IdenityState = {
     userInfo: UserInfo
 }
+
+type GraphState = {
+    graphData: Array<Number>
+}
+
 type NotificationState = {
     showError: boolean,
     errorMessage: string,

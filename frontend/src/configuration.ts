@@ -4,7 +4,8 @@ export function isDevelopment(): boolean {
 }
 
 export const configuration = {
-    baseUrl: process.env.VUE_APP_BASE_URL,
+    baseUrl: process.env.VUE_APP_BASE_URL as string,
+    signalRUrl: process.env.VUE_APP_BASE_SIGNALR_URL as string,
     logger:{
         level: process.env.VUE_APP_LOGGER_LEVEL as LogLevel
     },
